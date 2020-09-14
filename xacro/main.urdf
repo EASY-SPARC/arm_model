@@ -184,5 +184,9 @@
 	<gazebo>
 		<!--ros_control plugin-->
 		<plugin name="control" filename="libgazebo_ros_control.so"/>
+		<!-- joint_state_publisher plugin -->
+		<plugin name="joint_state_publisher" filename="libgazebo_ros_joint_state_publisher.so">
+				<jointName>hip, shoulder, elbow, wrist</jointName>
+		</plugin>
 	</gazebo>
 </robot>
