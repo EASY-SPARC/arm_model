@@ -1,0 +1,7 @@
+<launch>
+    <include file="$(find arm_model)/launch/empty_world.launch"/>
+    <include file="$(find moveit_arm_config)/launch/move_group.launch"/>
+    
+    <arg name="rvizconfig" default="$(find moveit_arm_config)/launch/moveit.rviz" />
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)" required="true" />
+</launch>
