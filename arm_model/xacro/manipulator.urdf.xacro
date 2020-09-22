@@ -1,142 +1,168 @@
 <?xml version="1.0"?>
 <robot
 	xmlns:xacro="http://www.ros.org/wiki/xacro"
-	name="arm_model">
-	<xacro:macro name="arm_model">
+	name="manipulator_model">
+
+	<xacro:include filename="$(find arm_model)/xacro/macros.xacro" />
+
+	<xacro:macro name="manipulator_model">
 		<!--link name="world"/-->
 		<link name="arm_base_link">
 			<visual>
 				<geometry>
-					<cylinder length="0.05" radius="0.1"/>
+					<cylinder length="0.045" radius="0.055"/>
 				</geometry>
 				<material name="silver">
 					<color rgba="0.75 0.75 0.75 1"/>
 				</material>
-				<origin rpy="0 0 0" xyz="0 0 0.025"/>
+				<origin rpy="0 0 0" xyz="0 0 0.0225"/>
 			</visual>
 			<collision>
 				<geometry>
-					<cylinder length="0.05" radius="0.1"/>
+					<cylinder length="0.045" radius="0.055"/>
 				</geometry>
-				<origin rpy="0 0 0" xyz="0 0 0.025"/>
+				<origin rpy="0 0 0" xyz="0 0 0.0225"/>
 			</collision>
 			<inertial>
 				<mass value="1.0"/>
-				<origin rpy="0 0 0" xyz="0 0 0.025"/>
-				<inertia ixx="0.0027" iyy="0.0027" izz="0.005"
-				ixy="0" ixz="0" iyz="0"/>
+				<origin rpy="0 0 0" xyz="0 0 0.0225"/>
+				<xacro:cylinder_inertia mass="1" r="0.055" l="0.05" />
 			</inertial>
 		</link>
 		<!--joint name="fixed" type="fixed">
 			<parent link="world"/>
 			<child link="arm_base_link"/>
 		</joint-->
-		<link name="torso">
+		<link name="turntable">
 			<visual>
 				<geometry>
-					<cylinder length="0.5" radius="0.05"/>
+					<cylinder length="0.03" radius="0.055"/>
 				</geometry>
 				<material name="silver">
 					<color rgba="0.75 0.75 0.75 1"/>
 				</material>
-				<origin rpy="0 0 0" xyz="0 0 0.25"/>
+				<origin rpy="0 0 0" xyz="0 0 0.015"/>
 			</visual>
 			<collision>
 				<geometry>
-					<cylinder length="0.5" radius="0.05"/>
+					<cylinder length="0.03" radius="0.055"/>
 				</geometry>
-				<origin rpy="0 0 0" xyz="0 0 0.25"/>
+				<origin rpy="0 0 0" xyz="0 0 0.015"/>
 			</collision>
 			<inertial>
 				<mass value="1.0"/>
-				<origin rpy="0 0 0" xyz="0 0 0.25"/>
-				<inertia ixx="0.02146" iyy="0.02146" izz="0.00125"
-				ixy="0" ixz="0" iyz="0"/>
+				<origin rpy="0 0 0" xyz="0 0 0.015"/>
+				<xacro:cylinder_inertia mass="1" r="0.055" l="0.03" />
 			</inertial>
 		</link>
-		<joint name="hip" type="continuous">
+		<joint name="turn" type="continuous">
 			<axis xyz="0 0 1"/>
 			<parent link="arm_base_link"/>
-			<child link="torso"/>
-			<origin rpy="0 0 0" xyz="0.0 0.0 0.05"/>
+			<child link="turntable"/>
+			<origin rpy="0 0 0" xyz="0.0 0.0 0.045"/>
 		</joint>
 		<link name="upper_arm">
 			<visual>
 				<geometry>
-					<cylinder length="0.4" radius="0.05"/>
+					<cylinder length="0.12" radius="0.0275"/>
 				</geometry>
 				<material name="silver"/>
-				<origin rpy="0 0 0" xyz="0 0 0.2"/>
+				<origin rpy="-1.5708 0 0" xyz="0 0.06 0"/>
 			</visual>
 			<collision>
 				<geometry>
-					<cylinder length="0.4" radius="0.05"/>
+					<cylinder length="0.12" radius="0.0275"/>
 				</geometry>
-				<origin rpy="0 0 0" xyz="0 0 0.2"/>
+				<origin rpy="-1.5708 0 0" xyz="0 0.06 0"/>
 			</collision>
 			<inertial>
 				<mass value="1.0"/>
-				<origin rpy="0 0 0" xyz="0 0 0.2"/>
-				<inertia ixx="0.01396" iyy="0.01396" izz="0.00125"
-				ixy="0" ixz="0" iyz="0"/>
+				<origin rpy="-1.5708 0 0" xyz="0 0.06 0"/>
+				<xacro:cylinder_inertia mass="1" r="0.0275" l="0.12" />
 			</inertial>
 		</link>
 		<joint name="shoulder" type="continuous">
-			<axis xyz="0 1 0"/>
-			<parent link="torso"/>
+			<axis xyz="0 0 1"/>
+			<parent link="turntable"/>
 			<child link="upper_arm"/>
-			<origin rpy="0 1.5708 0" xyz="0.0 -0.1 0.45"/>
+			<origin rpy="1.5708 0 0" xyz="0.0 0.0 0.03"/>
+		</joint>
+		<link name="middle_arm">
+			<visual>
+				<geometry>
+					<cylinder length="0.12" radius="0.0275"/>
+				</geometry>
+				<material name="silver"/>
+				<origin rpy="-1.5708 0 0" xyz="0 0.06 0"/>
+			</visual>
+			<collision>
+				<geometry>
+					<cylinder length="0.12" radius="0.0275"/>
+				</geometry>
+				<origin rpy="-1.5708 0 0" xyz="0 0.06 0"/>
+			</collision>
+			<inertial>
+				<mass value="1.0"/>
+				<origin rpy="-1.5708 0 0" xyz="0 0.06 0"/>
+				<xacro:cylinder_inertia mass="1" r="0.0275" l="0.12" />
+			</inertial>
+		</link>
+		<joint name="elbow" type="continuous">
+			<axis xyz="0 0 1"/>
+			<parent link="upper_arm"/>
+			<child link="middle_arm"/>
+			<origin rpy="0 0 0" xyz="0 0.12 0"/>
 		</joint>
 		<link name="lower_arm">
 			<visual>
 				<geometry>
-					<cylinder length="0.4" radius="0.05"/>
+					<cylinder length="0.055" radius="0.0275"/>
 				</geometry>
 				<material name="silver"/>
-				<origin rpy="0 0 0" xyz="0 0 0.2"/>
+				<origin rpy="-1.5708 0 0" xyz="0 0.0275 0"/>
 			</visual>
 			<collision>
 				<geometry>
-					<cylinder length="0.4" radius="0.05"/>
+					<cylinder length="0.055" radius="0.0275"/>
 				</geometry>
-				<origin rpy="0 0 0" xyz="0 0 0.2"/>
+				<origin rpy="-1.5708 0 0" xyz="0 0.0275 0"/>
 			</collision>
 			<inertial>
 				<mass value="1.0"/>
-				<origin rpy="0 0 0" xyz="0 0 0.2"/>
-				<inertia ixx="0.01396" iyy="0.01396" izz="0.00125"
-				ixy="0" ixz="0" iyz="0"/>
+				<origin rpy="-1.5708 0 0" xyz="0 0.0275 0"/>
+				<xacro:cylinder_inertia mass="1" r="0.0275" l="0.055" />
 			</inertial>
 		</link>
-		<joint name="elbow" type="continuous">
-			<axis xyz="0 1 0"/>
-			<parent link="upper_arm"/>
+		<joint name="another_elbow" type="continuous">
+			<axis xyz="0 0 1"/>
+			<parent link="middle_arm"/>
 			<child link="lower_arm"/>
-			<origin rpy="0 0 0" xyz="0.0 0.1 0.35"/>
+			<origin rpy="0 0 0" xyz="0 0.12 0"/>
 		</joint>
 		<link name="hand">
 			<visual>
 				<geometry>
-					<box size="0.05 0.05 0.05"/>
+					<box size="0.03 0.03 0.03"/>
 				</geometry>
 				<material name="silver"/>
+				<origin rpy="0 0 0" xyz="0 0 0.015"/>
 			</visual>
 			<collision>
 				<geometry>
-					<box size="0.05 0.05 0.05"/>
+					<box size="0.03 0.03 0.03"/>
 				</geometry>
+				<origin rpy="0 0 0" xyz="0 0 0.015"/>
 			</collision>
 			<inertial>
 				<mass value="1.0"/>
-				<inertia ixx="0.00042" iyy="0.00042" izz="0.00042"
-				ixy="0" ixz="0" iyz="0"/>
+				<origin rpy="0 0 0" xyz="0 0 0.015"/>
+				<xacro:box_inertia mass="1" x="0.03" y="0.03" z="0.03" />
 			</inertial>
 		</link>
-		<joint name="wrist" type="continuous">
-			<axis xyz="0 1 0"/>
+		<joint name="wrist" type="fixed">
 			<parent link="lower_arm"/>
 			<child link="hand"/>
-			<origin rpy="0 0 0" xyz="0.0 0.0 0.425"/>
+			<origin rpy="-1.5708 0 0" xyz="0.0 0.055 0.0"/>
 		</joint>
 
 		<!--Transmission Descriptions-->
@@ -191,4 +217,6 @@
 			</plugin>
 		</gazebo>
 	</xacro:macro>
+
+	<xacro:manipulator_model/>
 </robot>
