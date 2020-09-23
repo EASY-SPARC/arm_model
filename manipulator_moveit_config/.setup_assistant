@@ -1,0 +1,11 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: arm_model
+    relative_path: xacro/manipulator.urdf.xacro
+    xacro_args: ""
+  SRDF:
+    relative_path: config/manipulator_model.srdf
+  CONFIG:
+    author_name: vangasse
+    author_email: vangasse@ic.ufal.br
+    generated_timestamp: 1600889786

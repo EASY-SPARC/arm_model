@@ -6,8 +6,8 @@
 	<xacro:include filename="$(find arm_model)/xacro/macros.xacro" />
 
 	<xacro:macro name="manipulator_model">
-		<!--link name="world"/-->
-		<link name="arm_base_link">
+		<link name="world"/>
+		<link name="manipulator_base_link">
 			<visual>
 				<geometry>
 					<cylinder length="0.045" radius="0.055"/>
@@ -29,10 +29,11 @@
 				<xacro:cylinder_inertia mass="1" r="0.055" l="0.05" />
 			</inertial>
 		</link>
-		<!--joint name="fixed" type="fixed">
+		<joint name="planar" type="fixed">
+			<!--axis xyz="0 0 1"/-->
 			<parent link="world"/>
-			<child link="arm_base_link"/>
-		</joint-->
+			<child link="manipulator_base_link"/>
+		</joint>
 		<link name="turntable">
 			<visual>
 				<geometry>
@@ -57,7 +58,7 @@
 		</link>
 		<joint name="turn" type="continuous">
 			<axis xyz="0 0 1"/>
-			<parent link="arm_base_link"/>
+			<parent link="manipulator_base_link"/>
 			<child link="turntable"/>
 			<origin rpy="0 0 0" xyz="0.0 0.0 0.045"/>
 		</joint>
@@ -85,7 +86,7 @@
 			<axis xyz="0 0 1"/>
 			<parent link="turntable"/>
 			<child link="upper_arm"/>
-			<origin rpy="1.5708 0 0" xyz="0.0 0.0 0.03"/>
+			<origin rpy="1.5708 0 0" xyz="0.0 0.0 0.0575"/>
 		</joint>
 		<link name="middle_arm">
 			<visual>
@@ -93,17 +94,17 @@
 					<cylinder length="0.12" radius="0.0275"/>
 				</geometry>
 				<material name="silver"/>
-				<origin rpy="-1.5708 0 0" xyz="0 0.06 0"/>
+				<origin rpy="-1.5708 0 0" xyz="0 0.06 0.0555"/>
 			</visual>
 			<collision>
 				<geometry>
 					<cylinder length="0.12" radius="0.0275"/>
 				</geometry>
-				<origin rpy="-1.5708 0 0" xyz="0 0.06 0"/>
+				<origin rpy="-1.5708 0 0" xyz="0 0.06 0.0555"/>
 			</collision>
 			<inertial>
 				<mass value="1.0"/>
-				<origin rpy="-1.5708 0 0" xyz="0 0.06 0"/>
+				<origin rpy="-1.5708 0 0" xyz="0 0.06 0.0555"/>
 				<xacro:cylinder_inertia mass="1" r="0.0275" l="0.12" />
 			</inertial>
 		</link>
@@ -168,7 +169,7 @@
 		<!--Transmission Descriptions-->
 		<transmission name="tran0">
 			<type>transmission_interface/SimpleTransmission</type>
-			<joint name="hip">
+			<joint name="turn">
 				<hardwareInterface>PositionJointInterface</hardwareInterface>
 			</joint>
 			<actuator name="motor0">
@@ -198,7 +199,7 @@
 		</transmission>
 		<transmission name="tran3">
 			<type>transmission_interface/SimpleTransmission</type>
-			<joint name="wrist">
+			<joint name="another_elbow">
 				<hardwareInterface>PositionJointInterface</hardwareInterface>
 			</joint>
 			<actuator name="motor3">
@@ -213,7 +214,7 @@
 			<plugin name="control" filename="libgazebo_ros_control.so"/>
 			<!-- joint_state_publisher plugin -->
 			<plugin name="joint_state_publisher" filename="libgazebo_ros_joint_state_publisher.so">
-					<jointName>hip, shoulder, elbow, wrist</jointName>
+					<jointName>turn, shoulder, elbow, another_elbow</jointName>
 			</plugin>
 		</gazebo>
 	</xacro:macro>

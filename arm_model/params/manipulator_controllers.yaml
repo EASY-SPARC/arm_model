@@ -1,0 +1,7 @@
+manipulator_controller:
+  type: "position_controllers/JointTrajectoryController"
+  joints:
+    - turn
+    - shoulder
+    - elbow
+    - another_elbow

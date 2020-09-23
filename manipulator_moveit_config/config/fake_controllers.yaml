@@ -1,0 +1,10 @@
+controller_list:
+  - name: fake_manip_controller
+    joints:
+      - turn
+      - shoulder
+      - elbow
+      - another_elbow
+initial:  # Define initial robot poses.
+#  - group: manip
+#    pose: home
