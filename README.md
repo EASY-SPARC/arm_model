@@ -3,4 +3,4 @@
 `sudo apt-get install ros-melodic-joint-trajectory-controller`  
 `sudo apt-get install ros-melodic-movit`  
 Run:
-`roslaunch moveit_arm_config arm_setup0.launch`  
+`roslaunch manipulator_moveit_config setup0.launch`  
