@@ -1,6 +1,8 @@
 manipulator_controller:
   type: "position_controllers/JointTrajectoryController"
   joints:
+    - move_x
+    - move_y
     - turn
     - shoulder
     - elbow

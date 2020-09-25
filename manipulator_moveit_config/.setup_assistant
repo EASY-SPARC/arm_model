@@ -8,4 +8,4 @@ moveit_setup_assistant_config:
   CONFIG:
     author_name: vangasse
     author_email: vangasse@ic.ufal.br
-    generated_timestamp: 1600889786
+    generated_timestamp: 1601067078

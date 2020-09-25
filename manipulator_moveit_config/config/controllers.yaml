@@ -4,6 +4,8 @@ controller_list:
     action_ns: follow_joint_trajectory
     type: FollowJointTrajectory
     joints:
+      - move_x
+      - move_y
       - turn
       - shoulder
       - elbow
