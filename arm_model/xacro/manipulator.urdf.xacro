@@ -7,6 +7,26 @@
 
 	<xacro:macro name="manipulator_model">
 		<link name="world"/>
+		<joint name="move_x" type="prismatic">
+			<axis xyz="1 0 0"/>
+			<parent link="world"/>
+			<child link="x_axis_moving_base"/>
+			<limit effort="1000.0" lower="-1" upper="1" velocity="0.5"/>
+			<origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+		</joint>
+		<link name="x_axis_moving_base"/>
+		<joint name="move_y" type="prismatic">
+			<axis xyz="0 1 0"/>
+			<parent link="x_axis_moving_base"/>
+			<child link="y_axis_moving_base"/>
+			<limit effort="1000.0" lower="-1" upper="1" velocity="0.5"/>
+			<origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+		</joint>
+		<link name="y_axis_moving_base"/>
+		<joint name="planar" type="fixed">
+			<parent link="y_axis_moving_base"/>
+			<child link="manipulator_base_link"/>
+		</joint>
 		<link name="manipulator_base_link">
 			<visual>
 				<geometry>
@@ -29,11 +49,6 @@
 				<xacro:cylinder_inertia mass="1" r="0.055" l="0.05" />
 			</inertial>
 		</link>
-		<joint name="planar" type="fixed">
-			<!--axis xyz="0 0 1"/-->
-			<parent link="world"/>
-			<child link="manipulator_base_link"/>
-		</joint>
 		<link name="turntable">
 			<visual>
 				<geometry>
@@ -207,14 +222,34 @@
 				<mechanicalReduction>1</mechanicalReduction>
 			</actuator>
 		</transmission>
+		<transmission name="tran4">
+			<type>transmission_interface/SimpleTransmission</type>
+			<joint name="move_x">
+				<hardwareInterface>EffortJointInterface</hardwareInterface>
+			</joint>
+			<actuator name="motor4">
+				<hardwareInterface>EffortJointInterface</hardwareInterface>
+				<mechanicalReduction>1</mechanicalReduction>
+			</actuator>
+		</transmission>
+		<transmission name="tran5">
+			<type>transmission_interface/SimpleTransmission</type>
+			<joint name="move_y">
+				<hardwareInterface>EffortJointInterface</hardwareInterface>
+			</joint>
+			<actuator name="motor5">
+				<hardwareInterface>EffortJointInterface</hardwareInterface>
+				<mechanicalReduction>1</mechanicalReduction>
+			</actuator>
+		</transmission>
 
 		<!-- Gazebo Plugins -->
 		<gazebo>
-			<!--ros_control plugin-->
+			<!-- ros_control plugin -->
 			<plugin name="control" filename="libgazebo_ros_control.so"/>
 			<!-- joint_state_publisher plugin -->
 			<plugin name="joint_state_publisher" filename="libgazebo_ros_joint_state_publisher.so">
-					<jointName>turn, shoulder, elbow, another_elbow</jointName>
+					<jointName>turn, shoulder, elbow, another_elbow, move_y, move_x</jointName>
 			</plugin>
 		</gazebo>
 	</xacro:macro>
