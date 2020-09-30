@@ -12,14 +12,14 @@ joint_limits:
     max_velocity: 0
     has_acceleration_limits: false
     max_acceleration: 0
-  move_x:
+  move_forward:
     has_velocity_limits: true
     max_velocity: 0.5
     has_acceleration_limits: false
     max_acceleration: 0
-  move_y:
-    has_velocity_limits: true
-    max_velocity: 0.5
+  move_rotate:
+    has_velocity_limits: false
+    max_velocity: 0
     has_acceleration_limits: false
     max_acceleration: 0
   shoulder:

@@ -7,42 +7,41 @@
 
 	<xacro:macro name="manipulator_model">
 		<link name="world"/>
-		<joint name="move_x" type="prismatic">
-			<axis xyz="1 0 0"/>
+		<link name="rotate_moving_base">
+			<inertial>
+				<mass value="1.0"/>
+				<origin rpy="0 0 0" xyz="0 0 0.0225"/>
+				<xacro:cylinder_inertia mass="1" r="0.055" l="0.05" />
+			</inertial>
+		</link>
+		<joint name="move_rotate" type="continuous">
+			<axis xyz="0 0 1"/>
 			<parent link="world"/>
-			<child link="x_axis_moving_base"/>
-			<limit effort="1000.0" lower="-1" upper="1" velocity="0.5"/>
+			<child link="rotate_moving_base"/>
 			<origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
 		</joint>
-		<link name="x_axis_moving_base">
+		<link name="forward_moving_base">
 			<inertial>
 				<mass value="1.0"/>
 				<origin rpy="0 0 0" xyz="0 0 0.0225"/>
 				<xacro:cylinder_inertia mass="1" r="0.055" l="0.05" />
 			</inertial>
 		</link>
-		<joint name="move_y" type="prismatic">
-			<axis xyz="0 1 0"/>
-			<parent link="x_axis_moving_base"/>
-			<child link="y_axis_moving_base"/>
+		<joint name="move_forward" type="prismatic">
+			<axis xyz="1 0 0"/>
+			<parent link="rotate_moving_base"/>
+			<child link="forward_moving_base"/>
 			<limit effort="1000.0" lower="-1" upper="1" velocity="0.5"/>
 			<origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
 		</joint>
-		<link name="y_axis_moving_base">
-			<inertial>
-				<mass value="1.0"/>
-				<origin rpy="0 0 0" xyz="0 0 0.0225"/>
-				<xacro:cylinder_inertia mass="1" r="0.055" l="0.05" />
-			</inertial>
-		</link>
-		<joint name="planar" type="fixed">
-			<parent link="y_axis_moving_base"/>
+		<joint name="fixed" type="fixed">
+			<parent link="forward_moving_base"/>
 			<child link="manipulator_base_link"/>
 		</joint>
 		<link name="manipulator_base_link">
 			<visual>
 				<geometry>
-					<cylinder length="0.045" radius="0.055"/>
+					<cylinder length="0.045" radius="0.1"/>
 				</geometry>
 				<material name="silver">
 					<color rgba="0.75 0.75 0.75 1"/>
@@ -51,14 +50,14 @@
 			</visual>
 			<collision>
 				<geometry>
-					<cylinder length="0.045" radius="0.055"/>
+					<cylinder length="0.045" radius="0.1"/>
 				</geometry>
 				<origin rpy="0 0 0" xyz="0 0 0.0225"/>
 			</collision>
 			<inertial>
 				<mass value="1.0"/>
 				<origin rpy="0 0 0" xyz="0 0 0.0225"/>
-				<xacro:cylinder_inertia mass="1" r="0.055" l="0.05" />
+				<xacro:cylinder_inertia mass="1" r="0.1" l="0.05" />
 			</inertial>
 		</link>
 		<link name="turntable">
@@ -236,7 +235,7 @@
 		</transmission>
 		<transmission name="tran4">
 			<type>transmission_interface/SimpleTransmission</type>
-			<joint name="move_x">
+			<joint name="move_rotate">
 				<hardwareInterface>PositionJointInterface</hardwareInterface>
 			</joint>
 			<actuator name="motor4">
@@ -246,7 +245,7 @@
 		</transmission>
 		<transmission name="tran5">
 			<type>transmission_interface/SimpleTransmission</type>
-			<joint name="move_y">
+			<joint name="move_forward">
 				<hardwareInterface>PositionJointInterface</hardwareInterface>
 			</joint>
 			<actuator name="motor5">
@@ -261,7 +260,7 @@
 			<plugin name="control" filename="libgazebo_ros_control.so"/>
 			<!-- joint_state_publisher plugin -->
 			<plugin name="joint_state_publisher" filename="libgazebo_ros_joint_state_publisher.so">
-					<jointName>turn, shoulder, elbow, another_elbow, move_x, move_y</jointName>
+					<jointName>turn, shoulder, elbow, another_elbow, move_rotate, move_forward</jointName>
 			</plugin>
 		</gazebo>
 	</xacro:macro>

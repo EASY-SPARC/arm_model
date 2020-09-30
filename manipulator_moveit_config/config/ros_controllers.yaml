@@ -9,8 +9,8 @@ generic_hw_control_loop:
 # Settings for ros_control hardware interface
 hardware_interface:
   joints:
-    - move_x
-    - move_y
+    - move_rotate
+    - move_forward
     - turn
     - shoulder
     - elbow
@@ -22,8 +22,8 @@ joint_state_controller:
   type: joint_state_controller/JointStateController
   publish_rate: 50
 controller_list:
-    - move_x
-    - move_y
+    - move_rotate
+    - move_forward
     - turn
     - shoulder
     - elbow
