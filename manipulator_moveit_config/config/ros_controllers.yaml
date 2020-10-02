@@ -22,9 +22,4 @@ joint_state_controller:
   type: joint_state_controller/JointStateController
   publish_rate: 50
 controller_list:
-    - move_rotate
-    - move_forward
-    - turn
-    - shoulder
-    - elbow
-    - another_elbow
+  []

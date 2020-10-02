@@ -1,5 +1,5 @@
 <launch>
-    <include file="$(find arm_model)/launch/manip_world.launch"/>
+    <include file="$(find manipulator_model)/launch/manip_world.launch"/>
     <include file="$(find manipulator_moveit_config)/launch/move_group.launch"/>
     
     <arg name="rvizconfig" default="$(find manipulator_moveit_config)/launch/moveit.rviz" />

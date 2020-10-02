@@ -1,5 +1,5 @@
 controller_list:
-  - name: fake_manip_controller
+  - name: fake_manipulator_controller
     joints:
       - move_rotate
       - move_forward
@@ -8,5 +8,5 @@ controller_list:
       - elbow
       - another_elbow
 initial:  # Define initial robot poses.
-#  - group: manip
+#  - group: manipulator
 #    pose: home

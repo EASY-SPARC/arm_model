@@ -3,7 +3,7 @@
 	xmlns:xacro="http://www.ros.org/wiki/xacro"
 	name="manipulator_model">
 
-	<xacro:include filename="$(find arm_model)/xacro/macros.xacro" />
+	<xacro:include filename="$(find manipulator_model)/xacro/macros.xacro" />
 
 	<xacro:macro name="manipulator_model">
 		<link name="world"/>

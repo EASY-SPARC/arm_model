@@ -1,6 +1,6 @@
 moveit_setup_assistant_config:
   URDF:
-    package: arm_model
+    package: manipulator_model
     relative_path: xacro/manipulator.urdf.xacro
     xacro_args: ""
   SRDF:
@@ -8,4 +8,4 @@ moveit_setup_assistant_config:
   CONFIG:
     author_name: vangasse
     author_email: vangasse@ic.ufal.br
-    generated_timestamp: 1601491704
+    generated_timestamp: 1601601696
