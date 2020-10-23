@@ -3,7 +3,8 @@
 	xmlns:xacro="http://www.ros.org/wiki/xacro"
 	name="manipulator_model">
 
-	<xacro:include filename="$(find manipulator_model)/xacro/macros.xacro" />
+	<xacro:include filename="$(find manipulator_model)/xacro/inertia_macros.xacro" />
+	<xacro:include filename="$(find manipulator_model)/xacro/transmission_macros.xacro" />
 
 	<xacro:macro name="manipulator_model">
 		<link name="world"/>
@@ -193,66 +194,12 @@
 		</joint>
 
 		<!--Transmission Descriptions-->
-		<transmission name="tran0">
-			<type>transmission_interface/SimpleTransmission</type>
-			<joint name="turn">
-				<hardwareInterface>PositionJointInterface</hardwareInterface>
-			</joint>
-			<actuator name="motor0">
-				<hardwareInterface>PositionJointInterface</hardwareInterface>
-				<mechanicalReduction>1</mechanicalReduction>
-			</actuator>
-		</transmission>
-		<transmission name="tran1">
-			<type>transmission_interface/SimpleTransmission</type>
-			<joint name="shoulder">
-				<hardwareInterface>PositionJointInterface</hardwareInterface>
-			</joint>
-			<actuator name="motor1">
-				<hardwareInterface>PositionJointInterface</hardwareInterface>
-				<mechanicalReduction>1</mechanicalReduction>
-			</actuator>
-		</transmission>
-		<transmission name="tran2">
-			<type>transmission_interface/SimpleTransmission</type>
-			<joint name="elbow">
-				<hardwareInterface>PositionJointInterface</hardwareInterface>
-			</joint>
-			<actuator name="motor2">
-				<hardwareInterface>PositionJointInterface</hardwareInterface>
-				<mechanicalReduction>1</mechanicalReduction>
-			</actuator>
-		</transmission>
-		<transmission name="tran3">
-			<type>transmission_interface/SimpleTransmission</type>
-			<joint name="another_elbow">
-				<hardwareInterface>PositionJointInterface</hardwareInterface>
-			</joint>
-			<actuator name="motor3">
-				<hardwareInterface>PositionJointInterface</hardwareInterface>
-				<mechanicalReduction>1</mechanicalReduction>
-			</actuator>
-		</transmission>
-		<transmission name="tran4">
-			<type>transmission_interface/SimpleTransmission</type>
-			<joint name="move_rotate">
-				<hardwareInterface>PositionJointInterface</hardwareInterface>
-			</joint>
-			<actuator name="motor4">
-				<hardwareInterface>PositionJointInterface</hardwareInterface>
-				<mechanicalReduction>1</mechanicalReduction>
-			</actuator>
-		</transmission>
-		<transmission name="tran5">
-			<type>transmission_interface/SimpleTransmission</type>
-			<joint name="move_forward">
-				<hardwareInterface>PositionJointInterface</hardwareInterface>
-			</joint>
-			<actuator name="motor5">
-				<hardwareInterface>PositionJointInterface</hardwareInterface>
-				<mechanicalReduction>1</mechanicalReduction>
-			</actuator>
-		</transmission>
+		<xacro:position_transmission name="tran0" joint="turn" actuator="motor0"/>
+		<xacro:position_transmission name="tran1" joint="shoulder" actuator="motor1"/>
+		<xacro:position_transmission name="tran2" joint="elbow" actuator="motor2"/>
+		<xacro:position_transmission name="tran3" joint="another_elbow" actuator="motor3"/>
+		<xacro:position_transmission name="tran4" joint="move_rotate" actuator="motor4"/>
+		<xacro:position_transmission name="tran5" joint="move_forward" actuator="motor5"/>
 
 		<!-- Gazebo Plugins -->
 		<gazebo>
