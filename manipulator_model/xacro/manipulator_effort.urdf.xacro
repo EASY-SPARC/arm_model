@@ -194,17 +194,17 @@
 		</joint>
 
 		<!--Transmission Descriptions-->
-		<xacro:position_transmission name="tran0" joint="turn" actuator="motor0"/>
-		<xacro:position_transmission name="tran1" joint="shoulder" actuator="motor1"/>
-		<xacro:position_transmission name="tran2" joint="elbow" actuator="motor2"/>
-		<xacro:position_transmission name="tran3" joint="another_elbow" actuator="motor3"/>
-		<xacro:position_transmission name="tran4" joint="move_rotate" actuator="motor4"/>
-		<xacro:position_transmission name="tran5" joint="move_forward" actuator="motor5"/>
+		<xacro:effort_transmission name="tran0" joint="turn" actuator="motor0"/>
+		<xacro:effort_transmission name="tran1" joint="shoulder" actuator="motor1"/>
+		<xacro:effort_transmission name="tran2" joint="elbow" actuator="motor2"/>
+		<xacro:effort_transmission name="tran3" joint="another_elbow" actuator="motor3"/>
+		<xacro:effort_transmission name="tran4" joint="move_rotate" actuator="motor4"/>
+		<xacro:effort_transmission name="tran5" joint="move_forward" actuator="motor5"/>
 
 		<!-- Gazebo Plugins -->
 		<gazebo>
 			<!-- ros_control plugin -->
-			<plugin name="control" filename="libgazebo_ros_control.so"/>
+			<plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so"/>
 			<!-- joint_state_publisher plugin -->
 			<plugin name="joint_state_publisher" filename="libgazebo_ros_joint_state_publisher.so">
 					<jointName>turn, shoulder, elbow, another_elbow, move_rotate, move_forward</jointName>
