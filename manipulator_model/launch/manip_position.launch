@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+	<!-- Load the CougarBot URDF model into the parameter server -->
+	<param name="robot_description" command="$(find xacro)/xacro $(find manipulator_model)/xacro/manipulator.urdf.xacro" />
+	<!-- Start Gazebo with an empty world -->
+	<include file="$(find gazebo_ros)/launch/empty_world.launch"/>
+	<!-- Spawn a CougarBot in Gazebo, taking the description from the
+	parameter server -->
+	<node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model"
+	args="-param robot_description -urdf -model manipulator_model" />
+	<!-- Load Controllers -->
+	<rosparam file="$(find manipulator_model)/params/manipulator_controllers.yaml" command="load"/>
+	<node name="controller_spawner" pkg="controller_manager" type="spawner" args="manipulator_position_controller"/>
+	<!-- TF publisher-->
+	<node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
+</launch>
