@@ -33,4 +33,4 @@ To acquire MoveIt, just run as below:
 
 ## Running the Simulation
 Run:
-`roslaunch manipulator_moveit_config setup0.launch`  
+`roslaunch manipulator_moveit_config setup_position.launch`  
