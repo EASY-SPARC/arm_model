@@ -1,5 +1,15 @@
-manipulator_controller:
+manipulator_position_controller:
   type: "position_controllers/JointTrajectoryController"
+  joints:
+    - move_rotate
+    - move_forward
+    - turn
+    - shoulder
+    - elbow
+    - another_elbow
+
+manipulator_effort_controller:
+  type: "effort_controllers/JointTrajectoryController"
   joints:
     - move_rotate
     - move_forward
