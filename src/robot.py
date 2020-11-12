@@ -2,7 +2,7 @@
 import numpy as np
 
 class Robot:
-    def __init__(self, joint_states, link_dimensions):
+    def __init__(self, joint_states, link_dimensions, M, D, K):
         """
         Parâmetros de entrada:
             M: float()              ### Escalar representando a matriz de massa do atuador robótico;
@@ -11,14 +11,16 @@ class Robot:
         """
         self.theta = joint_states
         [self.d1, self.l2, self.l3, self.d4]  = link_dimensions
-        self.M = 0
-        self.D = 0
-        self.K = 0
+        self.M = M
+        self.D = D
+        self.K = K
 
-    def forward_kinematics():
-        
+        self.J = 0
 
-    def jacobian_computation():
+    def setJointStates(joint_states):
+        self.theta = joint_states
+
+    def jacobianComputation():
         #Parâmetros Recorrentes
         d4s1s234 = self.d4*np.sin(self.theta[0])*np.sin(self.theta[1]+self.theta[2]+self.theta[3])
         d4s1c234 = self.d4*np.sin(self.theta[0])*np.cos(self.theta[1]+self.theta[2]+self.theta[3])
@@ -46,6 +48,7 @@ class Robot:
                      [0.0                       np.cos(self.theta[0])                                                       np.cos(self.theta[0])                                               np.cos(self.theta[0])                                       -d4s1s234/self.d4   ],//
                      [1.0                       0.0                                                                         0.0                                                                 0.0                                                         np.cos(self.theta[1]+self.theta[2]+self.theta[3])])
 
+        return J
 
     def admitance_control(f, M, D, K, p, v, Ts):
         """
