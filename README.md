@@ -34,4 +34,4 @@ To acquire MoveIt, just run as below:
 ## Running the Simulation
 Run:
 `roslaunch manipulator_moveit_config setup_position.launch`  
-`roslaunch manipulator_model manip_effort.launch`  
+`roslaunch manipulator_model manip_velocity.launch`  
