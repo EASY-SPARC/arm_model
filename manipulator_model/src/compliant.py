@@ -15,14 +15,11 @@ def updateWorld(msg):
 
 def cb_velocity(msg):
     J = soft_snake.jacobianComputation()
-    print(J, np.linalg.pinv(J))
-    print(np.dot(np.linalg.pinv(J), J))
     q = np.array([msg.linear.x, msg.linear.y, msg.linear.z, msg.angular.x, msg.angular.y, msg.angular.z]).T
-    w = np.dot(np.linalg.pinv(J), q)
+    w = np.dot(np.linalg.pinv(J), q) *0.001
     joint_cmd = Float64MultiArray()
     joint_cmd.data = [0, 0, w[0], w[1], w[2], w[3]]
-    print(joint_cmd.data)
-    #pub.publish(joint_cmd)
+    pub.publish(joint_cmd)
 
 soft_snake = Robot([0, 0, 0, 0, 0, 0], [1, 1, 1, 1], 0, 0, 0)
 
