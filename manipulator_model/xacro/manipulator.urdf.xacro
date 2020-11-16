@@ -11,7 +11,7 @@
 		<link name="rotate_moving_base">
 			<inertial>
 				<mass value="1.0"/>
-				<origin rpy="0 0 0" xyz="0 0 0.0225"/>
+				<origin rpy="0 0 0" xyz="0 0 0.0625"/>
 				<xacro:cylinder_inertia mass="1" r="0.055" l="0.05" />
 			</inertial>
 		</link>
@@ -24,7 +24,7 @@
 		<link name="forward_moving_base">
 			<inertial>
 				<mass value="1.0"/>
-				<origin rpy="0 0 0" xyz="0 0 0.0225"/>
+				<origin rpy="0 0 0" xyz="0 0 0.0625"/>
 				<xacro:cylinder_inertia mass="1" r="0.055" l="0.05" />
 			</inertial>
 		</link>
@@ -42,22 +42,22 @@
 		<link name="manipulator_base_link">
 			<visual>
 				<geometry>
-					<cylinder length="0.045" radius="0.1"/>
+					<cylinder length="0.125" radius="0.175"/>
 				</geometry>
 				<material name="silver">
 					<color rgba="0.75 0.75 0.75 1"/>
 				</material>
-				<origin rpy="0 0 0" xyz="0 0 0.0225"/>
+				<origin rpy="0 0 0" xyz="0 0 0.0625"/>
 			</visual>
 			<collision>
 				<geometry>
-					<cylinder length="0.045" radius="0.1"/>
+					<cylinder length="0.125" radius="0.175"/>
 				</geometry>
-				<origin rpy="0 0 0" xyz="0 0 0.0225"/>
+				<origin rpy="0 0 0" xyz="0 0 0.0625"/>
 			</collision>
 			<inertial>
 				<mass value="1.0"/>
-				<origin rpy="0 0 0" xyz="0 0 0.0225"/>
+				<origin rpy="0 0 0" xyz="0 0 0.0625"/>
 				<xacro:cylinder_inertia mass="1" r="0.1" l="0.05" />
 			</inertial>
 		</link>
@@ -87,7 +87,7 @@
 			<axis xyz="0 0 1"/>
 			<parent link="manipulator_base_link"/>
 			<child link="turntable"/>
-			<origin rpy="0 0 0" xyz="0.0 0.0 0.045"/>
+			<origin rpy="0 0 0" xyz="0.0 0.0 0.125"/>
 		</joint>
 		<link name="upper_arm">
 			<visual>
