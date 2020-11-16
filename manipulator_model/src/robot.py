@@ -19,6 +19,8 @@ class Robot:
 
     def setJointStates(self, joint_states):
         self.theta = joint_states
+    def getJointStates(self):
+        return self.theta
 
     def jacobianComputation(self):
         #Parametros Recorrentes

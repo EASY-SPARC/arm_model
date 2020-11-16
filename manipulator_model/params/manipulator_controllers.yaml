@@ -8,8 +8,8 @@ manipulator_position_controller:
     - elbow
     - another_elbow
 
-manipulator_velocity_controller:
-  type: "velocity_controllers/JointGroupVelocityController"
+manipulator_pos_group_controller:
+  type: "position_controllers/JointGroupPositionController"
   joints:
     - move_rotate
     - move_forward
