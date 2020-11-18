@@ -194,12 +194,12 @@
 		</joint>
 
 		<!--Transmission Descriptions-->
-		<xacro:position_transmission name="tran0" joint="turn" actuator="motor0"/>
-		<xacro:position_transmission name="tran1" joint="shoulder" actuator="motor1"/>
-		<xacro:position_transmission name="tran2" joint="elbow" actuator="motor2"/>
-		<xacro:position_transmission name="tran3" joint="another_elbow" actuator="motor3"/>
-		<xacro:position_transmission name="tran4" joint="move_rotate" actuator="motor4"/>
-		<xacro:position_transmission name="tran5" joint="move_forward" actuator="motor5"/>
+		<xacro:effort_transmission name="tran0" joint="turn" actuator="motor0"/>
+		<xacro:effort_transmission name="tran1" joint="shoulder" actuator="motor1"/>
+		<xacro:effort_transmission name="tran2" joint="elbow" actuator="motor2"/>
+		<xacro:effort_transmission name="tran3" joint="another_elbow" actuator="motor3"/>
+		<xacro:effort_transmission name="tran4" joint="move_rotate" actuator="motor4"/>
+		<xacro:effort_transmission name="tran5" joint="move_forward" actuator="motor5"/>
 
 		<!-- Gazebo Plugins -->
 		<gazebo>

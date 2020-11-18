@@ -19,6 +19,7 @@ def cb_velocity(msg):
 
 soft_snake = Robot([0, 0, 0, 0, 0, 0], [0.1825, 0.12, 0.12, 0.03], 0, 0, 0)
 x = np.array([0, 0, 0, 0, 0, 0])
+qd = np.array([0, 0, 0, 0])
 Ts = 0.1
 
 rospy.init_node('compliant_control')
@@ -36,14 +37,13 @@ while not rospy.is_shutdown():
     J = soft_snake.jacobianComputation()
     #w = np.dot(np.dot(np.linalg.inv(np.dot(np.transpose(J), J) + (lbd ** 2) * np.eye(5)), np.transpose(J)), x)
     w = np.dot(np.linalg.pinv(J), x)
+    qd = qd + w*Ts
     joint_cmd = Float64MultiArray()
-    joint_cmd.data = [0, 0, soft_snake.getJointStates()[0] + w[0]*Ts, soft_snake.getJointStates()[1] + w[1]*Ts,
-                        soft_snake.getJointStates()[2] + w[2]*Ts, soft_snake.getJointStates()[3] + w[3]*Ts]
+    joint_cmd.data = [0, 0, qd[0], qd[1], qd[2], qd[3]]
     pub.publish(joint_cmd)
 
-    
-    print(x, w)
-    
-    pass
+    print(x)
+    print(w)
+    print(joint_cmd)
 
     rospy.sleep(Ts)

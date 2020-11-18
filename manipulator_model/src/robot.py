@@ -42,16 +42,15 @@ class Robot:
         d4s234 = self.d4*np.sin(self.theta[1]+self.theta[2]+self.theta[3])
         l3s23 = self.l3*np.sin(self.theta[1]+self.theta[2])
         l2s2 = self.l2*np.sin(self.theta[2])
-        c234 = np.cos(self.theta[1]+self.theta[2]+self.theta[3])
         s1 = np.sin(self.theta[0])
         c1 = np.cos(self.theta[0])
         
-        J = np.array([[d4s1s234+l3s1s23+l2s1s2,   d4c1c234+l3c1c23+l2c1c2,              d4c1c234+l3c1c23,               d4c1c234,               0.0 ],\
-                      [-d4c1s234-l3c1s23-l2c1s2,  -d4s1c234-l3s1c23-l2s1c2,             -d4s1c234-l3s1c23,              -d4s1c234,              0.0 ],\
-                      [0.0,                       (c1**2-s1**2)*(d4s234+l3s23+l2s2),    (c1**2-s1**2)*(d4s234+l3s23),   (c1**2-s1**2)*d4s234,   0.0 ],\
-                      [0.0,                       s1,                                   s1,                             s1,                     -d4c1s234/self.d4   ],\
-                      [0.0,                       c1,                                   c1,                             c1,                     -d4s1s234/self.d4   ],\
-                      [1.0,                       0.0,                                  0.0,                            0.0,                    c234                ]])
+        J = np.array([[d4s1s234+l3s1s23+l2s1s2,   d4c1c234+l3c1c23+l2c1c2,              d4c1c234+l3c1c23,               d4c1c234,               ],\
+                      [-d4c1s234-l3c1s23-l2c1s2,  -d4s1c234-l3s1c23-l2s1c2,             -d4s1c234-l3s1c23,              -d4s1c234,              ],\
+                      [0.0,                       (c1**2-s1**2)*(d4s234+l3s23+l2s2),    (c1**2-s1**2)*(d4s234+l3s23),   (c1**2-s1**2)*d4s234,   ],\
+                      [0.0,                       s1,                                   s1,                             s1,                     ],\
+                      [0.0,                       c1,                                   c1,                             c1,                     ],\
+                      [1.0,                       0.0,                                  0.0,                            0.0,                    ]])
 
         return J
 

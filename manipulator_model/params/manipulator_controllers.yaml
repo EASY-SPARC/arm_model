@@ -9,7 +9,7 @@ manipulator_position_controller:
     - another_elbow
 
 manipulator_pos_group_controller:
-  type: "position_controllers/JointGroupPositionController"
+  type: "effort_controllers/JointGroupPositionController"
   joints:
     - move_rotate
     - move_forward
@@ -17,3 +17,15 @@ manipulator_pos_group_controller:
     - shoulder
     - elbow
     - another_elbow
+  move_rotate:
+    pid: {p: 100,  d: 1, i: 10, i_clamp: 1}
+  move_forward:
+    pid: {p: 100,  d: 1, i: 10, i_clamp: 1}
+  turn:
+    pid: {p: 100,  d: 1, i: 10, i_clamp: 1}
+  shoulder:
+    pid: {p: 100,  d: 1, i: 10, i_clamp: 1}
+  elbow:
+    pid: {p: 100,  d: 1, i: 10, i_clamp: 1}
+  another_elbow:
+    pid: {p: 100,  d: 1, i: 10, i_clamp: 1}
