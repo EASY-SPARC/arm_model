@@ -36,20 +36,16 @@ lbd = 0.1
 while not rospy.is_shutdown():
     J = soft_snake.jacobianComputation()
     #w = np.dot(np.dot(np.linalg.inv(np.dot(np.transpose(J), J) + (lbd ** 2) * np.eye(5)), np.transpose(J)), x)
-    w = np.dot(np.linalg.pinv(J), x)
+    dw = soft_snake.inverseKinematics(x)
+    dw = soft_snake.saturator(dw)
 
-    ## Saturador
-    for i in range(len(w)):
-        while w[i] > 0.2 or w[i] < -0.2:
-            w = w/2
-
-    qd = qd + w*Ts
+    qd = qd + dw*Ts
     joint_cmd = Float64MultiArray()
     joint_cmd.data = [0, 0, qd[0], qd[1], qd[2], qd[3]]
     pub.publish(joint_cmd)
 
     print(x)
-    print(w)
+    print(dw)
     print(joint_cmd)
 
     rospy.sleep(Ts)

@@ -45,14 +45,25 @@ class Robot:
         s1 = np.sin(self.theta[0])
         c1 = np.cos(self.theta[0])
         
-        J = np.array([[d4s1s234+l3s1s23+l2s1s2,   -d4c1c234-l3c1c23-l2c1c2,             -d4c1c234-l3c1c23,              -d4c1c234,              ],\
+        self.J = np.array([[d4s1s234+l3s1s23+l2s1s2,   -d4c1c234-l3c1c23-l2c1c2,             -d4c1c234-l3c1c23,              -d4c1c234,              ],\
                       [-d4c1s234-l3c1s23-l2c1s2,  -d4s1c234-l3s1c23-l2s1c2,             -d4s1c234-l3s1c23,              -d4s1c234,              ],\
                       [0.0,                       -d4s234-l3s23-l2s2,                   -d4s234-l3s23,                  -d4s234,                ],\
                       [0.0,                       s1,                                   s1,                             s1,                     ],\
                       [0.0,                       -c1,                                  -c1,                            -c1,                    ],\
                       [1.0,                       0.0,                                  0.0,                            0.0,                    ]])
 
-        return J
+        return self.J
+
+    def inverseKinematics(self, cmd_vel):
+        dw = np.dot(np.linalg.pinv(self.J), cmd_vel)
+        return dw
+
+    def saturator(self, w):
+        for i in range(len(w)):
+            while w[i] > 0.2 or w[i] < -0.2:
+                w = w/2
+        return w
+
 
     def admitance_control(self, f, M, D, K, p, v, Ts):
         """
